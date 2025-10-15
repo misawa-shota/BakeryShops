@@ -1,3 +1,4 @@
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import '../css/app.css';
 import './bootstrap';
 
@@ -17,7 +18,11 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        root.render(<App {...props} />);
+        root.render(
+            <ChakraProvider value={defaultSystem}>
+                <App {...props} />
+            </ChakraProvider>
+        );
     },
     progress: {
         color: '#4B5563',
