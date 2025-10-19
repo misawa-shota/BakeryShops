@@ -10,10 +10,10 @@ const Home = (props) => {
             <Box>
                 <VStack spaceY={5} align={"stretch"}>
                 {props.shops.map((shop) => (
-                    <Link key={shop.id} borderWidth={"1px"} borderRadius={"md"}>
+                    <Link href={route('shop.detail', {id: shop.id})} key={shop.id} borderWidth={"1px"} borderRadius={"md"}>
                         <HStack>
                             <Image src={"https://placehold.jp/150x150.png"} />
-                            <VStack>
+                            <VStack ml={5}>
                                 <Heading fontSize={"20px"} fontWeight={"bold"}>{shop.name}</Heading>
                                 <Box>
                                     <HStack>
