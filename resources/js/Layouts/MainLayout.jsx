@@ -7,7 +7,7 @@ const MainLayout = ({children}) => {
             <header>
                 <Box bg={"yellow.400"} p={3}>
                     <HStack>
-                        <Heading>{import.meta.env.VITE_APP_NAME}</Heading>
+                        <Heading fontSize={"3xl"}>{import.meta.env.VITE_APP_NAME}</Heading>
                     </HStack>
                 </Box>
             </header>
