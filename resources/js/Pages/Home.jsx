@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa";
 
 const Home = (props) => {
     return (
-        <Box p={5}>
+        <Box>
             <Heading fontSize={{base: "24px"}} mb={10} fontWeight={"bold"}>店舗一覧</Heading>
             <Box>
                 <VStack spaceY={5} align={"stretch"}>
@@ -20,7 +20,6 @@ const Home = (props) => {
                                         {
                                             shop.reviews.length > 0 ? (
                                                 shop.reviews.map((review) => (
-                                                    // console.log(review.rate)
                                                     Array(5).fill("").map((_, i) => (
                                                         <Icon key={i} as={FaStar} size={"lg"} color={i < review.rate ? "yellow.500" : "gray.500" } />
                                                     ))

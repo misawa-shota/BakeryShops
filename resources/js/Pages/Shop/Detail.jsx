@@ -1,12 +1,12 @@
 import React from 'react';
 import MainLayout from '@/Layouts/MainLayout';
-import { Box, Heading, HStack, Icon, Image, Text } from '@chakra-ui/react';
+import { Box, Heading, HStack, Icon, Image, Text, Link } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
 
 const Detail = (props) => {
     return (
-        <Box p={3}>
-            <Heading my={5} as={"h2"} size={"2xl"} fontSize={"30px"} fontWeight={"bold"}>{props.shop.name}</Heading>
+        <Box>
+            <Heading my={5} as={"h2"} fontSize={"30px"} fontWeight={"bold"}>{props.shop.name}</Heading>
             <HStack display={"flex"} alignItems={"center"} spaceX={5}>
                 <Image src={"https://placehold.jp/150x150.png"} width={"300px"} />
                 <Box spaceY={5}>
@@ -20,7 +20,10 @@ const Detail = (props) => {
                     </Box>
                 </Box>
             </HStack>
-            <Heading as={"h3"} fontSize={"20px"} fontWeight={"bold"} mt={10}>レビュー一覧</Heading>
+            <HStack mt={10} display={"flex"} alignItems={"center"} justifyContent={"space-between"}>
+                <Heading as={"h3"} fontSize={"20px"} fontWeight={"bold"}>レビュー一覧</Heading>
+                <Link p={2} fontWeight={"600"} bg={"yellow.400"} borderRadius={5} href={route('review.create', {id: props.shop.id})}>レビュー投稿</Link>
+            </HStack>
             <Box py={3} spaceY={5}>
                 {props.shop.reviews.length > 0 ? (
                     props.shop.reviews.map((review) => (
@@ -30,7 +33,7 @@ const Detail = (props) => {
                                     review.rate > 0 ? (
                                         <Icon key={i} as={FaStar} size={"md"} color={i < review.rate ? "yellow.500" : "gray.500"} />
                                     ) : (
-                                        <Icon key={i} as={FaStar} size={"lg"} color={"gray.500"} />
+                                        <Icon key={i} as={FaStar} size={"md"} color={"gray.500"} />
                                     )
                                 ))}
                                 <Text ml={5}>{review.user.name}さん</Text>

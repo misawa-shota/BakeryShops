@@ -38,7 +38,6 @@ const MainLayout = ({children}) => {
                                             <>
                                                 <Text>こんにちは{auth.user.name}さん</Text>
                                                 <Link href={route('dashboard')}>マイページ</Link>
-                                                <Link>レビュー投稿</Link>
                                                 <Link href={route('logout')}>ログアウト</Link>
                                             </>
                                         ) : (
@@ -57,7 +56,7 @@ const MainLayout = ({children}) => {
                     </Portal>
                 </Drawer.Root>
             </header>
-            <div>{children}</div>
+            <Box p={5}>{children}</Box>
             <footer>
                 <Box bg={"yellow.400"} p={3} display={"flex"} justifyContent={"center"} alignItems={"center"}>
                     <Text>&copy;2025 {import.meta.env.VITE_APP_NAME}</Text>

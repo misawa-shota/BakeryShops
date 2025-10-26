@@ -25,4 +25,15 @@ class Review extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function saveReview($data)
+    {
+        $this->shop_id = $data['shop_id'];
+        $this->user_id = $data['user_id'];
+        $this->rate = $data['rate'];
+        $this->comment = $data['comment'];
+        $this->save();
+
+        return $this;
+    }
 }
