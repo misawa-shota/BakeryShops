@@ -11,8 +11,13 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $shops = Shop::with('reviews')->get();
+        $shops = Shop::withAvg('reviews', 'rate')
+            ->withCount('reviews')
+            ->get();
 
+        // foreach($shops as $shop){
+        //     dd($shop);
+        // }
         return Inertia::render('Home', [
             'shops' => $shops,
         ]);
