@@ -13,7 +13,7 @@ class ShopController extends Controller
     {
         $shops = Shop::withAvg('reviews', 'rate')
             ->withCount('reviews')
-            ->get();
+            ->paginate(20);
 
         // foreach($shops as $shop){
         //     dd($shop);
