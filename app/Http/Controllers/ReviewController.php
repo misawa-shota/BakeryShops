@@ -38,15 +38,23 @@ class ReviewController extends Controller
             ]);
 
             DB::commit();
+            $status = "create-review";
         } catch(\Exception $e) {
             $message = $e->getMessage();
             Log::error($message);
             DB::rollBack();
             throw $e;
+
+            $status = "error-review";
+            return redirect()->route('shop.detail', [
+                'id' => $request->shop_id,
+                'status' => $status,
+            ]);
         }
 
         return redirect()->route('shop.detail', [
             'id' => $request->shop_id,
+            'status' => $status,
         ]);
     }
 }

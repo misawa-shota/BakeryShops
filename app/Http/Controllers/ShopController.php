@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class ShopController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $shops = Shop::withAvg('reviews', 'rate')
             ->withCount('reviews')
@@ -25,10 +25,12 @@ class ShopController extends Controller
 
     public function detail($id)
     {
+        $status = request('status', "");
         $shop = Shop::with('reviews.user')->find($id);
 
         return Inertia::render('Shop/Detail', [
             'shop' => $shop,
+            'status' => $status,
         ]);
     }
 }

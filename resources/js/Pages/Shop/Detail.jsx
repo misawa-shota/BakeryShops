@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import { Box, Heading, HStack, Icon, Image, Text, Link } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
+import { toaster } from '../../../../src/components/ui/toaster';
 
 const Detail = (props) => {
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            if(props.status === "create-review"){
+                toaster.create({
+                    title: "投稿成功",
+                    description: "レビューの投稿に成功しました。",
+                    type: "success",
+                    closable: true,
+                    duration: 5000,
+                });
+            } else if(props.status === "error-review"){
+                toaster.create({
+                    title: "投稿失敗",
+                    description: "レビューの投稿に失敗しました。",
+                    type: "error",
+                    closable: true,
+                    duration: 5000,
+                });
+            }
+        }, 0);
+        return () => clearTimeout(timerId);
+    }, [props.status]);
     return (
         <Box>
             <Heading my={5} as={"h2"} fontSize={"30px"} fontWeight={"bold"}>{props.shop.name}</Heading>

@@ -2,6 +2,7 @@ import { Box, Drawer, Heading, HStack, Icon, Link, Portal, Text, VStack } from '
 import React from 'react';
 import { IoMenu, IoClose } from "react-icons/io5";
 import { usePage } from '@inertiajs/react';
+import { Toaster } from '../../../src/components/ui/toaster';
 
 const MainLayout = ({children}) => {
     const { auth } = usePage().props;
@@ -57,6 +58,7 @@ const MainLayout = ({children}) => {
                 </Drawer.Root>
             </header>
             <Box p={5}>{children}</Box>
+            <Toaster />
             <footer>
                 <Box bg={"yellow.400"} p={3} display={"flex"} justifyContent={"center"} alignItems={"center"}>
                     <Text>&copy;2025 {import.meta.env.VITE_APP_NAME}</Text>
