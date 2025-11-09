@@ -37,7 +37,9 @@ Route::get('/shop/{id}', [ShopController::class, 'detail'])->name('shop.detail')
 //Review
 Route::middleware('auth')->group(function () {
     Route::get('/review/create/shop/{id}', [ReviewController::class, 'create'])->name('review.create');
+    Route::get('/review/edit/{id}', [ReviewController::class, 'edit'])->name('review.edit');
     Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
+    Route::patch('/review/update', [ReviewController::class, 'update'])->name('review.update');
 });
 
 require __DIR__.'/auth.php';

@@ -36,4 +36,14 @@ class Review extends Model
 
         return $this;
     }
+
+    public function updateReview($request)
+    {
+        $update_review = $this->find($request->review_id);
+        $update_review->rate = $request->rate;
+        $update_review->comment = $request->comment;
+        $update_review->save();
+
+        return $update_review;
+    }
 }
