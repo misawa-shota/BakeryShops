@@ -3,8 +3,10 @@ import MainLayout from '@/Layouts/MainLayout';
 import { Box, Heading, HStack, Icon, Image, Text, Link } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
 import { toaster } from '../../../../src/components/ui/toaster';
+import { usePage } from '@inertiajs/react';
 
 const Detail = (props) => {
+    const { auth } = usePage().props;
     useEffect(() => {
         const timerId = setTimeout(() => {
             if(props.status === "create-review"){
@@ -19,6 +21,22 @@ const Detail = (props) => {
                 toaster.create({
                     title: "投稿失敗",
                     description: "レビューの投稿に失敗しました。",
+                    type: "error",
+                    closable: true,
+                    duration: 5000,
+                });
+            } else if(props.status === "update-review"){
+                toaster.create({
+                    title: "更新成功",
+                    description: "レビューの更新に成功しました。",
+                    type: "success",
+                    closable: true,
+                    duration: 5000,
+                });
+            } else if(props.status === "error-update-review"){
+                toaster.create({
+                    title: "更新失敗",
+                    description: "レビューの更新に失敗しました。",
                     type: "error",
                     closable: true,
                     duration: 5000,
@@ -51,15 +69,22 @@ const Detail = (props) => {
                 {props.shop.reviews.length > 0 ? (
                     props.shop.reviews.map((review) => (
                         <Box key={review.id} spaceY={3} p={3} borderRadius={"md"} borderWidth={"1px"} borderColor={"gray.500"}>
-                            <HStack display={"flex"} alignItems={"center"}>
-                                {Array(5).fill("").map((_, i) => (
-                                    review.rate > 0 ? (
-                                        <Icon key={i} as={FaStar} size={"md"} color={i < review.rate ? "yellow.500" : "gray.500"} />
-                                    ) : (
-                                        <Icon key={i} as={FaStar} size={"md"} color={"gray.500"} />
+                            <HStack justifyContent={"space-between"}>
+                                <HStack display={"flex"} alignItems={"center"}>
+                                    {Array(5).fill("").map((_, i) => (
+                                        review.rate > 0 ? (
+                                            <Icon key={i} as={FaStar} size={"md"} color={i < review.rate ? "yellow.500" : "gray.500"} />
+                                        ) : (
+                                            <Icon key={i} as={FaStar} size={"md"} color={"gray.500"} />
+                                        )
+                                    ))}
+                                    <Text ml={5}>{review.user.name}さん</Text>
+                                </HStack>
+                                {
+                                    auth.user && auth.user.id === review.user.id && (
+                                        <Link href={route('review.edit', {id: review.id})} borderRadius={5} bg={"yellow.400"} p={2}>編集</Link>
                                     )
-                                ))}
-                                <Text ml={5}>{review.user.name}さん</Text>
+                                }
                             </HStack>
                             <Text>{review.comment}</Text>
                         </Box>
