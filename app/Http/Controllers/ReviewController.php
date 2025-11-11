@@ -105,4 +105,19 @@ class ReviewController extends Controller
             'status' => $status,
         ]);
     }
+
+    public function delete($id)
+    {
+        $review_shop_id = Review::where('id', $id)->value('shop_id');
+        $detail_shop_id = Shop::where('id', $review_shop_id)->value('id');
+
+        $review = Review::find($id);
+        $review->delete();
+        $status = "delete-review";
+
+        return redirect()->route('shop.detail', [
+            'id' => $detail_shop_id,
+            'status' => $status,
+        ]);
+    }
 }

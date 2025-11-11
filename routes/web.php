@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/review/edit/{id}', [ReviewController::class, 'edit'])->name('review.edit');
     Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
     Route::patch('/review/update', [ReviewController::class, 'update'])->name('review.update');
+    Route::delete('/review/delete/{id}', [ReviewController::class, 'delete'])->name('review.delete');
 });
 
 require __DIR__.'/auth.php';
