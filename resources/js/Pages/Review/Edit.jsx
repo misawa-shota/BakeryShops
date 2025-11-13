@@ -3,7 +3,7 @@ import MainLayout from '@/Layouts/MainLayout';
 import { Box, Heading, Field, Textarea, HStack, Icon, VStack, Button } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
 import { router } from '@inertiajs/react';
-import CustomDialog from '@/Components/Custom/CustomDialog';
+import CustomDialog from '@/Components/Parts/CustomDialog';
 
 const Edit = (props) => {
     const [rate, setRate] = useState(props.review.rate);
