@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import MainLayout from '@/Layouts/MainLayout';
-import { Box, Heading, Field, Textarea, HStack, Icon, VStack, Button, Dialog, Portal, Text } from '@chakra-ui/react';
+import { Box, Heading, Field, Textarea, HStack, Icon, VStack, Button } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
 import { router } from '@inertiajs/react';
+import CustomDialog from '@/Components/Custom/CustomDialog';
 
 const Create = (props) => {
     const [rate, setRate] = useState(1);
@@ -24,6 +25,10 @@ const Create = (props) => {
         setIsDialogOpen(false);
     };
 
+    const handleOpenChange = (newOpenState) => {
+        setIsDialogOpen(newOpenState);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         router.post(route('review.store'), {
@@ -35,25 +40,16 @@ const Create = (props) => {
 
     return (
         <Box>
-            <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <Portal>
-                    <Dialog.Backdrop />
-                    <Dialog.Positioner>
-                        <Dialog.Content>
-                            <Dialog.Header>
-                                <Dialog.Title>レビュー投稿</Dialog.Title>
-                            </Dialog.Header>
-                            <Dialog.Body>
-                                <Text>本当に投稿しますか?</Text>
-                            </Dialog.Body>
-                            <Dialog.Footer>
-                                <Button p={2} borderRadius={5} bg={"gray.200"} onClick={dialogClose}>キャンセル</Button>
-                                <Button p={2} borderRadius={5} bg={"yellow.400"} onClick={handleSubmit}>投稿する</Button>
-                            </Dialog.Footer>
-                        </Dialog.Content>
-                    </Dialog.Positioner>
-                </Portal>
-            </Dialog.Root>
+            <CustomDialog
+                title={"レビュー投稿"}
+                text={"本当に投稿しますか？"}
+                actionButton={"投稿する"}
+                buttonColor={"yellow.400"}
+                isDialogOpen={isDialogOpen}
+                dialogClose={dialogClose}
+                handleSubmit={handleSubmit}
+                handleOpenChange={handleOpenChange}
+            />
             <Heading mb={10} as={"h2"} fontSize={"30px"} fontWeight={"bold"}>レビュー作成</Heading>
             <Box bg={"gray.100"} p={2}>
                 <form>
