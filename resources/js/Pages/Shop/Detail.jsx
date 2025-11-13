@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import MainLayout from '@/Layouts/MainLayout';
-import { Box, Heading, HStack, Icon, Image, Text, Link, Button, Dialog, Portal } from '@chakra-ui/react';
+import { Box, Heading, HStack, Icon, Image, Text, Link, Button } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
 import { toaster } from '../../../../src/components/ui/toaster';
 import { usePage, router } from '@inertiajs/react';
+import CustomDialog from '@/Components/Custom/CustomDialog';
 
 const Detail = (props) => {
     const { auth } = usePage().props;
@@ -67,7 +68,12 @@ const Detail = (props) => {
         setIsDialogOpen(false);
     };
 
-    const deleteReview = () => {
+    const handleOpenChange = (newOpenState) => {
+        setIsDialogOpen(newOpenState);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if(reviewId){
             router.delete(route('review.delete', {id: reviewId}));
             setIsDialogOpen(false);
@@ -77,25 +83,16 @@ const Detail = (props) => {
 
     return (
         <Box>
-            <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <Portal>
-                    <Dialog.Backdrop />
-                    <Dialog.Positioner>
-                        <Dialog.Content>
-                            <Dialog.Header>
-                                <Dialog.Title>レビュー削除</Dialog.Title>
-                            </Dialog.Header>
-                            <Dialog.Body>
-                                <Text>本当に削除しますか?</Text>
-                            </Dialog.Body>
-                            <Dialog.Footer>
-                                <Button p={2} borderRadius={5} bg={"gray.200"} onClick={dialogClose}>キャンセル</Button>
-                                <Button p={2} borderRadius={5} bg={"red.400"} onClick={deleteReview}>削除する</Button>
-                            </Dialog.Footer>
-                        </Dialog.Content>
-                    </Dialog.Positioner>
-                </Portal>
-            </Dialog.Root>
+            <CustomDialog
+                title={"レビュー削除"}
+                text={"本当に削除しますか？"}
+                actionButton={"削除する"}
+                buttonColor={"red.400"}
+                isDialogOpen={isDialogOpen}
+                dialogClose={dialogClose}
+                handleSubmit={handleSubmit}
+                handleOpenChange={handleOpenChange}
+            />
             <Heading my={5} as={"h2"} fontSize={"30px"} fontWeight={"bold"}>{props.shop.name}</Heading>
             <HStack display={"flex"} alignItems={"center"} spaceX={5}>
                 <Image src={"https://placehold.jp/150x150.png"} width={"300px"} />
