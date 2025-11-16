@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import HomeStarRating from './HomeStarRating';
 import { HStack, Image, VStack, Heading, Box, Text } from '@chakra-ui/react';
 
-function ShopData(props) {
+const ShopData = memo((props) => {
+    console.log("ShopData.jsx レンダリング");
     return (
         <>
             {props.homeShopData === "トップページの店舗情報" && (
@@ -37,6 +38,6 @@ function ShopData(props) {
             )}
         </>
     )
-}
+});
 
 export default ShopData

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ShopCard from '../Atoms/ShopCard';
 import ReviewCard from '../Atoms/ReviewCard';
 import { Text } from '@chakra-ui/react';
 
-function CardList(props) {
+const CardList = memo((props) => {
+    console.log("CardList レンダリング");
     return (
         <>
             {props.cardList === "店舗リスト" && props.shopLists.map((shop) => (
@@ -18,6 +19,6 @@ function CardList(props) {
             )}
         </>
     )
-}
+});
 
 export default CardList

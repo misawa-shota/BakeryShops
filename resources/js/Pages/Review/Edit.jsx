@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import { Box, Heading, Field, Textarea, HStack, Icon, VStack, Button } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
@@ -10,33 +10,34 @@ const Edit = (props) => {
     const [comment, setComment] = useState(props.review.comment);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const review_id = props.review.id;
+    console.log("Edit.jsx レンダリング");
 
     const handleChange = (e) => {
         setComment(e.target.value);
     };
 
-    const dialogOpen = (e) => {
+    const dialogOpen = useCallback((e) => {
         e.preventDefault();
         setIsDialogOpen(true);
-    };
+    }, []);
 
-    const dialogClose = (e) => {
+    const dialogClose = useCallback((e) => {
         e.preventDefault();
         setIsDialogOpen(false);
-    };
+    }, []);
 
-    const handleOpenChange = (newOpenState) => {
+    const handleOpenChange = useCallback((newOpenState) => {
         setIsDialogOpen(newOpenState);
-    };
+    }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = useCallback((e) => {
         e.preventDefault();
         router.patch(route('review.update'), {
             review_id,
             rate,
             comment,
         });
-    };
+    }, []);
 
     return (
         <Box>

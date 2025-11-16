@@ -2,7 +2,7 @@ import React from 'react';
 import { HStack, Button } from '@chakra-ui/react';
 import { router } from '@inertiajs/react';
 
-function Pagination(props) {
+const Pagination = (props) => {
     const handlePageChange = (url) => {
             router.get(url);
         };

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import StarRating from '../Parts/StarRating';
 import { usePage } from '@inertiajs/react';
 import { Box, HStack, Text, Link, Button } from '@chakra-ui/react';
 
-function ReviewCard(props) {
+const ReviewCard = memo((props) => {
     const { auth } = usePage().props;
+    console.log("ReviewCard.jsx レンダリング");
     return (
         <Box key={props.review.id} spaceY={3} p={3} borderRadius={"md"} borderWidth={"1px"} borderColor={"gray.500"}>
             <HStack justifyContent={"space-between"}>
@@ -24,6 +25,6 @@ function ReviewCard(props) {
             <Text>{props.review.comment}</Text>
         </Box>
     )
-}
+});
 
 export default ReviewCard;
