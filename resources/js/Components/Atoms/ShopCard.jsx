@@ -2,7 +2,8 @@ import React from 'react';
 import ShopData from '../Parts/ShopData';
 import { Link } from '@chakra-ui/react';
 
-function ShopList(props) {
+const ShopCard = (props) => {
+    console.log("ShopCard.jsx レンダリング");
     return (
         <Link href={route('shop.detail', {id: props.shop.id})} key={props.shop.id} borderWidth={"1px"} borderRadius={"md"}>
             <ShopData
@@ -15,4 +16,4 @@ function ShopList(props) {
     )
 }
 
-export default ShopList
+export default ShopCard

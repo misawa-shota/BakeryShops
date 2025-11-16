@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Icon } from '@chakra-ui/react';
 import { FaStar } from 'react-icons/fa';
 
-function StarRating(props) {
+const StarRating = memo((props) => {
+    console.log("StarRating.jsx レンダリング");
     return (
         <>
             {Array(5).fill("").map((_, i) => (
@@ -14,6 +15,6 @@ function StarRating(props) {
             ))}
         </>
     )
-}
+});
 
 export default StarRating

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Dialog, Portal, Text, Button } from '@chakra-ui/react';
 
-function CustomDialog(props) {
+const CustomDialog = memo((props) => {
+    console.log("CustomDialog レンダリング");
     return (
         <Dialog.Root open={props.isDialogOpen} onOpenChange={props.handleOpenChange}>
             <Portal>
@@ -23,6 +24,6 @@ function CustomDialog(props) {
             </Portal>
         </Dialog.Root>
     )
-}
+});
 
 export default CustomDialog;

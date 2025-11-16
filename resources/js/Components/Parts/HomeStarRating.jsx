@@ -1,8 +1,9 @@
 import { HStack, Icon, Box } from '@chakra-ui/react';
-import React from 'react';
+import React, { memo } from 'react';
 import { FaStar } from 'react-icons/fa';
 
-function StarRating({rating, percentage, totalStars = 5, ...props}) {
+const HomeStarRating = memo(({rating, percentage, totalStars = 5, ...props}) => {
+    console.log("HomeStarRating.jsx レンダリング");
     return (
         <HStack spacing={1}>
             {Array(totalStars).fill("").map((_, i) => {
@@ -29,6 +30,6 @@ function StarRating({rating, percentage, totalStars = 5, ...props}) {
             })}
         </HStack>
     );
-};
+});
 
-export default StarRating;
+export default HomeStarRating;

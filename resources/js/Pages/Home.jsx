@@ -5,7 +5,7 @@ import CardList from '@/Components/Molecules/CardList';
 import Pagination from '@/Components/Parts/Pagination';
 
 const Home = (props) => {
-
+    console.log("Home.jsx レンダリング");
     return (
         <Box>
             <Heading fontSize={{base: "24px"}} mb={10} fontWeight={"bold"}>店舗一覧</Heading>

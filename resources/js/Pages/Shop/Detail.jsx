@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import MainLayout from '@/Layouts/MainLayout';
 import { Box, Heading, HStack, Icon, Image, Text, Link, Button } from '@chakra-ui/react';
 import { toaster } from '../../../../src/components/ui/toaster';
@@ -10,6 +10,7 @@ import CardList from '@/Components/Molecules/CardList';
 const Detail = (props) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [reviewId, setReviewId] = useState(null);
+    console.log("Detail.jsx レンダリング");
 
     useEffect(() => {
         const timerId = setTimeout(() => {
@@ -58,28 +59,28 @@ const Detail = (props) => {
         return () => clearTimeout(timerId);
     }, [props.status]);
 
-    const dialogOpen = (id) => {
+    const dialogOpen = useCallback((id) => {
         setReviewId(id);
         setIsDialogOpen(true);
-    };
+    }, []);
 
-    const dialogClose = (e) => {
+    const dialogClose = useCallback((e) => {
         e.preventDefault();
         setIsDialogOpen(false);
-    };
+    }, []);
 
-    const handleOpenChange = (newOpenState) => {
+    const handleOpenChange = useCallback((newOpenState) => {
         setIsDialogOpen(newOpenState);
-    };
+    }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = useCallback((e) => {
         e.preventDefault();
         if(reviewId){
             router.delete(route('review.delete', {id: reviewId}));
             setIsDialogOpen(false);
             setReviewId(null);
         }
-    };
+    }, [reviewId]);
 
     return (
         <Box>
@@ -104,35 +105,6 @@ const Detail = (props) => {
                 <Link p={2} fontWeight={"600"} bg={"yellow.400"} borderRadius={5} href={route('review.create', {id: props.shop.id})}>レビュー投稿</Link>
             </HStack>
             <Box py={3} spaceY={5}>
-                {/* {props.shop.reviews.length > 0 ? (
-                    props.shop.reviews.map((review) => (
-                        <Box key={review.id} spaceY={3} p={3} borderRadius={"md"} borderWidth={"1px"} borderColor={"gray.500"}>
-                            <HStack justifyContent={"space-between"}>
-                                <HStack display={"flex"} alignItems={"center"}>
-                                    {Array(5).fill("").map((_, i) => (
-                                        review.rate > 0 ? (
-                                            <Icon key={i} as={FaStar} size={"md"} color={i < review.rate ? "yellow.500" : "gray.500"} />
-                                        ) : (
-                                            <Icon key={i} as={FaStar} size={"md"} color={"gray.500"} />
-                                        )
-                                    ))}
-                                    <Text ml={5}>{review.user.name}さん</Text>
-                                </HStack>
-                                {
-                                    auth.user && auth.user.id === review.user.id && (
-                                        <HStack spaceX={3}>
-                                            <Link href={route('review.edit', {id: review.id})} borderRadius={5} bg={"yellow.400"} p={2}>編集</Link>
-                                            <Button onClick={() => dialogOpen(review.id)} borderRadius={5} bg={"red.400"} p={2}>削除</Button>
-                                        </HStack>
-                                    )
-                                }
-                            </HStack>
-                            <Text>{review.comment}</Text>
-                        </Box>
-                    ))
-                ) : (
-                    <Text>レビューはまだありません</Text>
-                )} */}
                 <CardList
                     cardList={"レビューリスト"}
                     shopReviews={props.shop.reviews}
